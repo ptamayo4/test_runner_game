@@ -1,12 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class GameManager : MonoBehaviour {
 
 	public static GameManager instance = null;
 	private bool playerActive = false;
 	private bool gameOver = false;
+	private bool gameStarted = false;
+
+	[SerializeField] private GameObject mainMenu;
 
 	public bool PlayerActive {
 		get { return playerActive; }
@@ -14,6 +18,10 @@ public class GameManager : MonoBehaviour {
 
 	public bool GameOver {
 		get { return gameOver; }
+	}
+
+	public bool GameStarted {
+		get { return gameStarted; }
 	}
 
 
@@ -26,6 +34,8 @@ public class GameManager : MonoBehaviour {
 		}
 
 		DontDestroyOnLoad (gameObject);
+
+		Assert.IsNotNull (mainMenu);
 	}
 
 	// Use this for initialization
@@ -45,4 +55,10 @@ public class GameManager : MonoBehaviour {
 	public void PlayerStartedGame() {
 		playerActive = true;
 	}
+
+	public void EnterGame() {
+		mainMenu.SetActive (false);
+		gameStarted = true;
+	}
 }
+ 
